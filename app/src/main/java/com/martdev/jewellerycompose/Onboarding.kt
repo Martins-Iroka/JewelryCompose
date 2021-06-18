@@ -75,8 +75,6 @@ fun OnBoarding() {
 
 @Preview(showBackground = true)
 @Composable
-fun OnBoardingPreview() {
+private fun OnBoardingPreview() {
     OnBoarding()
 }
-
-fun fontFamily(font: Int) = FontFamily(Font(font))

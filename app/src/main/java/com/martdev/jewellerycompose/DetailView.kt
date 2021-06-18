@@ -155,6 +155,6 @@ fun Item(image: Int, text: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun DetailPreview() {
+private fun DetailPreview() {
     JewelryDetailView()
 }

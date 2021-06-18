@@ -260,6 +260,6 @@ fun JewelryItemView() {
 
 @Preview(showBackground = true)
 @Composable
-fun HomePreview() {
+private fun HomePreview() {
     HomeView()
 }

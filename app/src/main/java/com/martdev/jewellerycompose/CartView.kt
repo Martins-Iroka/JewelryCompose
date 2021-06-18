@@ -7,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -33,33 +34,9 @@ fun MyCartView() {
             .fillMaxSize()
             .background(Color.White)) {
 
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(start = 24.dp, top = 57.dp, end = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(46.dp)
-                    .clip(RoundedCornerShape(17.dp))
-                    .border(width = 1.dp, TextColor.copy((0.08f)), RoundedCornerShape(17.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(painter = painterResource(id = R.drawable.ic_arrow_back),
-                    contentDescription = "Arrow back")
-            }
-            
-            Text(text = "My Cart",
-                Modifier.fillMaxWidth(),
-                color = TextColor,
-                fontSize = 28.sp,
-                fontFamily = fontFamily(R.font.merriweather_regular),
-                textAlign = TextAlign.Center
-            )
-        }
+        ToolbarView("My Cart")
 
-        Spacer(modifier = Modifier.padding(top = 40.dp))
+        Spacer(modifier = Modifier.padding(top = 33.dp))
 
         Column(
             Modifier.fillMaxSize(),
@@ -70,30 +47,23 @@ fun MyCartView() {
                 CartItem()
             }
 
-            Column(
-                Modifier
-                    .size(335.dp, 204.dp)
-                    .shadow(3.dp, shape = RoundedCornerShape(24.dp))
-                    .clip(RoundedCornerShape(24.dp))
-                    .background(Color.White)
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                Text(text = "Payment ",
-                    Modifier.padding(start = 15.dp, top = 21.dp),
-                    color = TextColor6,
-                    fontSize = 22.sp,
-                    fontFamily = fontFamily(R.font.merriweather_regular)
-                )
+            CardView(modifier = Modifier.align(Alignment.CenterHorizontally), height = 204.dp) {
+                Column {
+                    TextView(text = "Payment")
 
-                PaymentItem(text = "Item total", text2 = "\$1000", topPadding = 24.dp)
+                    PaymentItem(text = "Item total", text2 = "\$1000", topPadding = 24.dp)
 
-                PaymentItem(text = "Delivery fee", text2 = "\$50")
+                    PaymentItem(text = "Delivery fee", text2 = "\$50")
 
-                Divider(Modifier.fillMaxWidth().padding(start = 15.dp, top = 16.dp, end = 18.dp))
+                    Divider(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(start = 15.dp, top = 16.dp, end = 18.dp))
 
-                PaymentItem(text = "Total",
-                    text2 = "\$1050", Color.Black,
-                    fontFamily = R.font.merriweather_bold)
+                    PaymentItem(text = "Total",
+                        text2 = "\$1050", Color.Black,
+                        fontFamily = R.font.merriweather_bold)
+                }
             }
 
             ButtonView(modifier = Modifier
@@ -112,7 +82,9 @@ fun PaymentItem(text: String, text2: String,
                 @FontRes fontFamily: Int = R.font.merriweather_regular
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(start = 15.dp, top = topPadding, end = 18.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(start = 15.dp, top = topPadding, end = 18.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -140,23 +112,8 @@ fun CartItem() {
             .background(Color.White)
     ) {
 
-        Box(
-            Modifier
-                .size(66.dp, 33.dp)
-                .offset(x = 255.dp, y = 70.dp)
-                .clip(RoundedCornerShape(9.dp))
-                .background(
-                    brush = Brush.linearGradient(ChildGradiant)
-                )
-            ,
-            contentAlignment = Alignment.Center) {
-
-            Text(text = "\$600",
-                color = TextColor,
-                fontSize = 12.sp,
-                fontFamily = fontFamily(R.font.poppins_regular)
-            )
-        }
+        ButtonView2(modifier = Modifier.offset(x = 255.dp, y = 70.dp),
+            width = 66.dp, height = 33.dp, text = "\$600")
 
         Row(
             Modifier.padding(start = 15.dp, top = 21.dp),
@@ -199,6 +156,6 @@ fun CartItem() {
 
 @Preview(showBackground = true)
 @Composable
-fun MyCardPreview() {
+private fun MyCardPreview() {
     MyCartView()
 }
