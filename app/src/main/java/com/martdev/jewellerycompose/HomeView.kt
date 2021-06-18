@@ -90,16 +90,21 @@ fun HomeView() {
                     fontFamily = fontFamily(R.font.merriweather_bold)
                 )
 
+                Spacer(Modifier.padding(top = 16.dp))
+
                 Row(
                     Modifier
                         .size(314.dp, 60.dp)
+                        .shadow(1.dp, RoundedCornerShape(18))
                         .clip(RoundedCornerShape(18))
                         .background(Color.White)
-                        .padding(start = startDp, top = 18.dp),
+                        .align(Alignment.CenterHorizontally),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Spacer(Modifier.padding(start = startDp))
+
+                    Spacer(Modifier.padding(start = 16.dp))
+
                     Icon(painter = painterResource(id = R.drawable.ic_search_24),
                         contentDescription = "Search",
                         Modifier

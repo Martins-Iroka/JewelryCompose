@@ -14,19 +14,9 @@ val GRADIANT = listOf(
     Color(0xFFF3CBD1)
 )
 
-val GRADIANT2 = listOf(
-    listOf(
-        Color(0xFF5FD3FF),
-        Color(0xFF63D6FF).copy(0f)
-    ),
-    listOf(
-        Color(0xFFFFAE88),
-        Color(0xFF8F93EA).copy(0f)
-    )
-)
 val ChildGradiant = listOf(
-    Color(0xFF5FD3FF),
-    Color(0xFF63D6FF).copy(0f)
+    Color(0xFFE4F4FF),
+    Color(0xFFDFF1FF)
 )
 
 val ChildGradiant2 = listOf(
@@ -34,6 +24,14 @@ val ChildGradiant2 = listOf(
     Color(0xFF8F93EA).copy(0.12f)
 )
 
+val ChildGradiant3 = listOf(
+    Color(0xFFFFAE88),
+    Color(0xFF8F93EA)
+)
+
 val TextColor = Color(0xFF6A515E)
 val TextColor2 = Color(0xFFBBBBBB)
 val TextColor3 = Color(0xFF9B97B6)
+val TextColor4 = Color(0xFFA06784)
+val TextColor5 = Color(0xFF3E4462)
+val TextColor6 = Color(0xFF69515D)
