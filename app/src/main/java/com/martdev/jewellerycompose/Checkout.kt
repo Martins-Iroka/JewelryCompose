@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.martdev.jewellerycompose.ui.theme.TextColor5
+import com.martdev.jewellerycompose.ui.theme.TextColor7
 
 @Composable
 fun CheckoutView() {
@@ -87,7 +88,7 @@ fun CheckoutView() {
                             append("**** **** **** 3947\n")
                         }
 
-                        withStyle(style = SpanStyle(color = TextColor5,
+                        withStyle(style = SpanStyle(color = TextColor7,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Light,
                             fontFamily = fontFamily(R.font.poppins_regular)
