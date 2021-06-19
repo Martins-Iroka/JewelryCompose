@@ -90,7 +90,7 @@ fun CheckoutView(
         ) {
 
             if (showView) {
-                TextView(text = "Order placed")
+                TextView(text = "Order Placed")
 
                 ButtonView(modifier = Modifier.align(Alignment.CenterHorizontally),
                     text = "OK",
