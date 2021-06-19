@@ -1,33 +1,31 @@
 package com.martdev.jewellerycompose
 
 import androidx.compose.foundation.*
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.martdev.jewellerycompose.ui.theme.*
 
 @Composable
-fun HomeView() {
+fun HomeView(
+    itemClicked: () -> Unit,
+    onProfileClicked: () -> Unit,
+    cartClicked: () -> Unit
+) {
     val radius = 40.dp
     val startDp = 34.dp
 
@@ -54,7 +52,9 @@ fun HomeView() {
                     )
 
                     Icon(painter = painterResource(id = R.drawable.ic_user),
-                        contentDescription = "Person")
+                        contentDescription = "Person",
+                        Modifier.clickable { onProfileClicked() }
+                    )
                 }
             }
         },
@@ -81,7 +81,7 @@ fun HomeView() {
                     .verticalScroll(rememberScrollState())
             ) {
 
-                Toolbar()
+                Toolbar(cartClicked)
 
                 Text(text = "Best jewellery\nfor you",
                     Modifier.padding(start = startDp, top = 49.dp),
@@ -124,7 +124,7 @@ fun HomeView() {
                     horizontalArrangement = Arrangement.spacedBy(26.dp)
                 ) {
                     items(5, key = {it}) {
-                        JewelryItemView()
+                        JewelryItemView(itemClicked)
                     }
                 }
             }
@@ -133,7 +133,7 @@ fun HomeView() {
 }
 
 @Composable
-private fun Toolbar() {
+private fun Toolbar(cartClicked: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -146,7 +146,10 @@ private fun Toolbar() {
             contentDescription = "Ham"
         )
 
-        Icon(painter = painterResource(id = R.drawable.ic_cart), contentDescription = "Cart")
+        Icon(painter = painterResource(id = R.drawable.ic_cart),
+            contentDescription = "Cart",
+            Modifier.clickable { cartClicked() }
+        )
     }
 }
 
@@ -206,11 +209,12 @@ fun TabItem(text: String,
 }
 
 @Composable
-fun JewelryItemView() {
+fun JewelryItemView(clicked: () -> Unit) {
     Box(
         Modifier
             .clip(RoundedCornerShape(32.dp))
             .background(Color.White)
+            .clickable { clicked() }
     ) {
         Column(
             Modifier.padding(start = 19.dp, top = 29.dp, end = 19.dp, bottom = 17.dp),
@@ -261,5 +265,5 @@ fun JewelryItemView() {
 @Preview(showBackground = true)
 @Composable
 private fun HomePreview() {
-    HomeView()
+    HomeView ({}, {}, {})
 }

@@ -1,7 +1,6 @@
 package com.martdev.jewellerycompose
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,8 +35,13 @@ private val items = listOf(
 )
 
 @Composable
-fun JewelryDetailView() {
+fun JewelryDetailView(
+    navigateUpClicked: () -> Unit,
+    addCartClicked: () -> Unit
+) {
+
     val startPad = 45.dp
+
     Column(
         Modifier
             .fillMaxSize()
@@ -63,71 +67,81 @@ fun JewelryDetailView() {
                     ,
                 contentAlignment = Alignment.Center) {
                 Icon(painter = painterResource(id = R.drawable.ic_arrow_back),
-                    contentDescription = "Arrow back")
-            }
-        }
-
-
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(start = startPad, end = 41.dp)
-                .offset(y = (-30).dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "Pink Diamond",
-                color = TextColor4,
-                fontSize = 28.sp,
-                fontFamily = fontFamily(R.font.merriweather_bold)
-            )
-
-            Box(
-                Modifier
-                    .size(66.dp, 33.dp)
-                    .clip(CircleShape)
-                    .background(
-                        brush = Brush.linearGradient(ChildGradiant)
-                    )
-                ,
-                contentAlignment = Alignment.Center) {
-
-                Text(text = "20% off",
-                    color = TextColor,
-                    fontSize = 12.sp,
-                    fontFamily = fontFamily(R.font.poppins_regular)
+                    contentDescription = "Arrow back",
+                    Modifier.clickable { navigateUpClicked() }
                 )
             }
         }
-        
-        Row(Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+
+        Column(
+            Modifier
+                .offset(y = (-30).dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            for (i in items) {
-                Item(i.image, i.text)
+
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = startPad, end = 41.dp),
+
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "Pink Diamond",
+                    color = TextColor4,
+                    fontSize = 28.sp,
+                    fontFamily = fontFamily(R.font.merriweather_bold)
+                )
+
+                Box(
+                    Modifier
+                        .size(66.dp, 33.dp)
+                        .clip(CircleShape)
+                        .background(
+                            brush = Brush.linearGradient(ChildGradiant)
+                        )
+                    ,
+                    contentAlignment = Alignment.Center) {
+
+                    Text(text = "20% off",
+                        color = TextColor,
+                        fontSize = 12.sp,
+                        fontFamily = fontFamily(R.font.poppins_regular)
+                    )
+                }
             }
+
+            Spacer(modifier = Modifier.padding(top = 16.dp))
+            Row(Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                for (i in items) {
+                    Item(i.image, i.text)
+                }
+            }
+
+            Text(text = "About",
+                Modifier.padding(start = startPad, top = 18.dp),
+                color = TextColor,
+                fontSize = 18.sp,
+                fontFamily = fontFamily(R.font.merriweather_bold)
+            )
+
+            Text(text = stringResource(id = R.string.info),
+                Modifier.padding(45.dp, top = 5.dp, end = 24.dp),
+                color = TextColor3,
+                fontSize = 14.sp,
+                fontFamily = fontFamily(R.font.poppins_regular),
+                textAlign = TextAlign.Justify
+            )
+
+            Spacer(modifier = Modifier.padding(top = 27.dp))
+
+            ButtonView(modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = "Add to Cart") { addCartClicked() }
+
+            Spacer(modifier = Modifier.padding(bottom = 18.dp))
         }
-
-        Text(text = "About",
-            Modifier.padding(start = startPad, top = 18.dp),
-            color = TextColor,
-            fontSize = 18.sp,
-            fontFamily = fontFamily(R.font.merriweather_bold)
-        )
-        
-        Text(text = stringResource(id = R.string.info),
-            Modifier.padding(45.dp, top = 5.dp, end = 24.dp),
-            color = TextColor3,
-            fontSize = 14.sp,
-            fontFamily = fontFamily(R.font.poppins_regular),
-            textAlign = TextAlign.Justify
-        )
-
-        Spacer(modifier = Modifier.padding(top = 27.dp))
-
-        ButtonView(modifier = Modifier.align(Alignment.CenterHorizontally), text = "Add to Cart")
-
-        Spacer(modifier = Modifier.padding(bottom = 18.dp))
     }
 }
 
@@ -156,5 +170,5 @@ fun Item(image: Int, text: String) {
 @Preview(showBackground = true)
 @Composable
 private fun DetailPreview() {
-    JewelryDetailView()
+    JewelryDetailView({}, {})
 }

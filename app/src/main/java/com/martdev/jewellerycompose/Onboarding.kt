@@ -1,17 +1,18 @@
 package com.martdev.jewellerycompose
 
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,9 +20,44 @@ import androidx.compose.ui.unit.sp
 import com.martdev.jewellerycompose.ui.theme.GRADIANT
 import com.martdev.jewellerycompose.ui.theme.TextColor
 import com.martdev.jewellerycompose.ui.theme.TextColor3
+import kotlinx.coroutines.delay
 
 @Composable
-fun OnBoarding() {
+fun OnBoarding(clicked: () -> Unit) {
+
+    var offset by remember {
+        mutableStateOf(195.dp)
+    }
+    var rotate by remember {
+        mutableStateOf(0f)
+    }
+
+    val offDp by animateDpAsState(targetValue = offset,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioHighBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
+
+    val animRotate by animateFloatAsState(targetValue = rotate,
+        animationSpec = tween(
+            durationMillis = 500,
+            easing = LinearOutSlowInEasing
+        )
+    )
+
+    suspend fun launchAnim() {
+        offset = 170.dp
+        delay(500L)
+        rotate = 360f
+        delay(1000L)
+        offset = 195.dp
+    }
+
+    LaunchedEffect(Unit) {
+        delay(300L)
+        launchAnim()
+    }
 
     Column(
         Modifier
@@ -66,7 +102,10 @@ fun OnBoarding() {
 
             Image(painter = painterResource(id = R.drawable.ic_fab),
                 contentDescription = "FAB",
-                Modifier.offset(y = 180.dp)
+                Modifier
+                    .offset(y = offDp)
+                    .rotate(animRotate)
+                    .clickable { clicked() }
             )
         }
     }
@@ -76,5 +115,5 @@ fun OnBoarding() {
 @Preview(showBackground = true)
 @Composable
 private fun OnBoardingPreview() {
-    OnBoarding()
+    OnBoarding {}
 }

@@ -2,6 +2,7 @@ package com.martdev.jewellerycompose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -27,14 +28,15 @@ import com.martdev.jewellerycompose.ui.theme.TextColor
 import com.martdev.jewellerycompose.ui.theme.TextColor6
 
 @Composable
-fun ButtonView(modifier: Modifier, text: String) {
+fun ButtonView(modifier: Modifier, text: String,
+               width: Dp = 303.dp, height: Dp = 62.dp, clicked: () -> Unit) {
     Box(
         modifier
-            .size(width = 303.dp, 62.dp)
+            .size(width, height)
             .clip(RoundedCornerShape(17.dp))
             .background(
                 brush = Brush.linearGradient(ChildGradiant3)
-            ),
+            ).clickable { clicked() },
         contentAlignment = Alignment.Center) {
 
         Text(text = text,
@@ -66,7 +68,7 @@ fun ButtonView2(modifier: Modifier, width: Dp, height: Dp, text: String) {
 }
 
 @Composable
-fun ToolbarView(title: String) {
+fun ToolbarView(title: String, navigateUp: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -77,7 +79,8 @@ fun ToolbarView(title: String) {
             Modifier
                 .size(46.dp)
                 .clip(RoundedCornerShape(17.dp))
-                .border(width = 1.dp, TextColor.copy((0.08f)), RoundedCornerShape(17.dp)),
+                .border(width = 1.dp, TextColor.copy((0.08f)), RoundedCornerShape(17.dp))
+                .clickable { navigateUp() },
             contentAlignment = Alignment.Center
         ) {
             Icon(

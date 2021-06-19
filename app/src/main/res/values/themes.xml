@@ -17,6 +17,8 @@
     <style name="Theme.JewelleryCompose.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/background</item>
     </style>
 
     <style name="Theme.JewelleryCompose.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

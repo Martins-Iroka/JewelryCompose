@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -11,11 +12,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -26,11 +24,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.martdev.jewellerycompose.ui.theme.TextColor
-import com.martdev.jewellerycompose.ui.theme.TextColor5
 import com.martdev.jewellerycompose.ui.theme.TextColor8
 
 @Composable
-fun ProfileView() {
+fun ProfileView(navigateUpClicked: () -> Unit) {
 
     Box(
         Modifier
@@ -42,7 +39,7 @@ fun ProfileView() {
         Column(
             Modifier.fillMaxSize()
         ) {
-            ProfileToolbar()
+            ProfileToolbar(navigateUpClicked)
 
             Image(painter = painterResource(id = R.drawable.profile_pic),
                 contentDescription = "",
@@ -106,7 +103,7 @@ fun ProfileView() {
 }
 
 @Composable
-private fun ProfileToolbar() {
+private fun ProfileToolbar(navigateUpClicked: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -115,7 +112,7 @@ private fun ProfileToolbar() {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        NavButton(R.drawable.ic_arrow_back)
+        NavButton(R.drawable.ic_arrow_back) { navigateUpClicked() }
 
         Text(
             text = "My Profile",
@@ -133,13 +130,14 @@ private fun ProfileToolbar() {
 }
 
 @Composable
-private fun NavButton(@DrawableRes icon: Int) {
+private fun NavButton(@DrawableRes icon: Int, clicked: () -> Unit = {}) {
     Box(
         Modifier
             .size(46.dp)
             .clip(RoundedCornerShape(17.dp))
-            .border(width = 1.dp, TextColor.copy((0.08f)), RoundedCornerShape(17.dp)),
-        contentAlignment = Alignment.Center
+            .border(width = 1.dp, TextColor.copy((0.08f)), RoundedCornerShape(17.dp))
+            .clickable { clicked() },
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             painter = painterResource(id = icon),
@@ -185,5 +183,5 @@ fun Item(modifier: Modifier, @DrawableRes leadingIcon: Int,
 @Preview(showBackground = true)
 @Composable
 fun ProfilePreview() {
-    ProfileView()
+    ProfileView{}
 }

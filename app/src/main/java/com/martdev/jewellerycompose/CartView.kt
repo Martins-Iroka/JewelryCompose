@@ -3,24 +3,17 @@ package com.martdev.jewellerycompose
 import androidx.annotation.FontRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -28,13 +21,16 @@ import androidx.compose.ui.unit.sp
 import com.martdev.jewellerycompose.ui.theme.*
 
 @Composable
-fun MyCartView() {
+fun MyCartView(
+    navigateUpClicked: () -> Unit,
+    checkoutClicked: () -> Unit
+) {
     Column(
         Modifier
             .fillMaxSize()
             .background(Color.White)) {
 
-        ToolbarView("My Cart")
+        ToolbarView("My Cart") { navigateUpClicked() }
 
         Spacer(modifier = Modifier.padding(top = 33.dp))
 
@@ -43,9 +39,10 @@ fun MyCartView() {
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            for (i in 1..2) {
-                CartItem()
-            }
+
+            CartItem()
+
+            CartItem()
 
             CardView(modifier = Modifier.align(Alignment.CenterHorizontally), height = 204.dp) {
                 Column {
@@ -67,10 +64,10 @@ fun MyCartView() {
             }
 
             ButtonView(modifier = Modifier
-                .padding(top = 93.dp, bottom = 16.dp)
+                .padding(top = 50.dp, bottom = 16.dp)
                 .align(Alignment.CenterHorizontally)
                 ,
-                text = "Go to Checkout")
+                text = "Go to Checkout") { checkoutClicked() }
         }
     }
 }
@@ -157,5 +154,5 @@ fun CartItem() {
 @Preview(showBackground = true)
 @Composable
 private fun MyCardPreview() {
-    MyCartView()
+    MyCartView( {}, {} )
 }
